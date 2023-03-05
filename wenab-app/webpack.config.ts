@@ -41,7 +41,7 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
         exclude: /node_modules/,
-        use: ["file-loader?name=[name].[ext]"], // ?name=[name].[ext] is only necessary to preserve the original file name
+        use: ["file-loader?name=[name].[ext]"],
       },
     ],
   },
@@ -62,8 +62,6 @@ module.exports = {
         { from: path.resolve(__dirname, "public", "meta"), to: distPath },
       ],
     }),
-    // new webpack.HotModuleReplacementPlugin(),
-    //new webpack.NamedModulesPlugin(),
   ],
   devServer: {
     devMiddleware: {
