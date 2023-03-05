@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2022",
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "es2022"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -13,14 +13,23 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+    "module": "es2022",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "isolatedModules": false,
+    "noEmit": false,
+    "jsx": "react-jsx",
+    "baseUrl": "src",
+    "sourceMap": true,
+    "outDir": "dist",
+    "downlevelIteration": true,
+    "paths": {
+      "@/*": ["./*"],
+      "@Api": ["./generated/wenabClient"]
+    },
   },
   "include": [
-    "src"
+    "src",
+    "tools",
   ]
 }
