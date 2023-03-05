@@ -1,25 +1,31 @@
+using LittleByte.Common;
+using LittleByte.Common.AspNet.Middleware;
+using LittleByte.Common.Logging.Configuration;
+using LittleByte.Common.AspNet.Configuration;
+using LittleByte.Common.Identity.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services
+    .AddLogs()
+    .AddOpenApi("Wenab")
+    .AddSingleton<IDateService, DateService>()
+    .AddEndpointsApiExplorer()
+    .AddSwaggerGen()
+    .AddJwtAuthentication(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
+app
+    .UseHttpsRedirection()
+    .UseHsts()
+    .UseRouting()
+    .UseAuthentication()
+    .UseAuthorization()
+    .UseHttpExceptions()
+    .UseModelValidationExceptions()
+    .UseEndpoints(endpoints => endpoints.MapControllers())
+    .UseOpenApi();
 
 app.Run();
