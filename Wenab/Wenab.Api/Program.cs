@@ -1,25 +1,29 @@
+using LittleByte.Common;
+using LittleByte.Common.AspNet.Middleware;
+using LittleByte.Common.AspNet.Configuration;
+using LittleByte.Common.Configuration;
+using Wenab.Ynab;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services
+    .AddOpenApi("Wenab")
+    .AddSingleton<IDateService, DateService>()
+    .AddEndpointsApiExplorer()
+    .AddSwaggerGen();
+
+builder.Services.BindOptions<YnabOptions>(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
+app
+    .UseHttpsRedirection()
+    .UseHsts()
+    .UseRouting()
+    .UseHttpExceptions()
+    .UseModelValidationExceptions()
+    .UseEndpoints(endpoints => endpoints.MapControllers())
+    .UseOpenApi();
 
 app.Run();
