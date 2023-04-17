@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LittleByte.Common.AspNet.Responses;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Wenab.Api.Categories;
 using Wenab.Ynab;
 using Controller = LittleByte.Common.AspNet.Core.Controller;
 
@@ -15,7 +17,7 @@ public sealed class GetBudgetController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<ApiResponse<BudgetDto>> Get()
     {
         var client = new HttpClient
         {
@@ -24,7 +26,9 @@ public sealed class GetBudgetController : Controller
 
         var ynabClient = new Client(client);
         var budget = await ynabClient.GetBudgetByIdAsync(options.SharedBudgetId, null);
+        var categories = budget.Data.Budget.Categories.Select(c => new CategoryDto(c.Name, c.Balance)).ToArray();
+        var budgetDto = new BudgetDto(categories);
 
-        return Ok(budget);
+        return new OkResponse<BudgetDto>(budgetDto);
     }
 }
