@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2022",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "es2022"
-    ],
+    "lib": ["dom", "dom.iterable", "es2022"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -24,12 +20,15 @@
     "outDir": "dist",
     "downlevelIteration": true,
     "paths": {
-      "@/*": ["./*"],
-      "@Api": ["./generated/wenabClient"]
-    },
+      "@Api": ["./src/generated/wenabClient"],
+      "@Models": ["./src/models"],
+      "@Services": ["./src/services"],
+      "@Views": ["./src/views"]
+    }
   },
-  "include": [
-    "src",
-    "tools",
-  ]
+  "include": ["src", "tools"],
+  "ts-node": {
+    // Do not forget to `npm i -D tsconfig-paths`
+    "require": ["tsconfig-paths/register"]
+  }
 }

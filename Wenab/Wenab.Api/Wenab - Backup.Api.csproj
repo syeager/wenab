@@ -4,7 +4,6 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>c4bd8e44-e789-4032-a714-a869518993e9</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,8 +17,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Dtos\" />
-	  <Folder Include="Requests\" />
+	  <Folder Include="NewFolder\" />
 	</ItemGroup>
 
 </Project>

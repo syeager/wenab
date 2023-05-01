@@ -1,4 +1,4 @@
-﻿namespace Wenab.Ynab;
+﻿namespace Wenab.Api.Ynab;
 
 public sealed class YnabOptions
 {
